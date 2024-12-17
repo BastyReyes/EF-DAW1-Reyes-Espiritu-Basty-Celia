@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/cars")
-public class ManageUserApi {
+public class ManageCarApi {
 
     @Autowired
     ManageService manageService;
@@ -23,9 +23,9 @@ public class ManageUserApi {
     public GetAllCarsResponse getAllCars() {
 
         try {
-            List<CarDto> users = manageService.getAllCars();
-            if (!users.isEmpty())
-                return new GetAllCarsResponse("01", null, users);
+            List<CarDto> cars = manageService.getAllCars();
+            if (!cars.isEmpty())
+                return new GetAllCarsResponse("01", null, cars);
             else
                 return new GetAllCarsResponse("02", "Cars not found", null);
 
@@ -42,8 +42,8 @@ public class ManageUserApi {
 
         try {
             Optional<CarDetailDto> optional = manageService.getDetailCar(Integer.parseInt(id));
-            return optional.map(user ->
-                    new GetDetailCarResponse("01", null, user)
+            return optional.map(car ->
+                    new GetDetailCarResponse("01", null, car)
             ).orElse(
                     new GetDetailCarResponse("02", "Car not found", null)
             );
